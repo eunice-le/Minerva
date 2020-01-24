@@ -127,25 +127,3 @@ df_Bottom10 <- df[which(df$RevisedAmount <= quantile(df$RevisedAmount, 0.1)),]
 #Division
 (table(df_Top10$Division) / length(df_Top10$Division) * 100) - 
   (table(df_Bottom10$Division) / length(df_Bottom10$Division) * 100)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
