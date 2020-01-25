@@ -58,7 +58,7 @@ df_withDates$Delay <- df_withDates$OriginalCompletionDate - df_withDates$Revised
 sum(is.na(df_withDates$Delay)) #There is none
 #Calculating the mean, median, and quintile of Delay time for each year in the CirculationYear
 library(dplyr)  
-delayByYear <- df_withDates %>%  # %>% means "pass what is to the left to the function that follows"
+delayByYear <- df_withDates %>%  
   group_by(CirculationYear) %>%    
   summarise(mean.delay = mean(Delay), 
             median.delay = median(Delay),
@@ -86,26 +86,26 @@ IQR(df_withDates$ExpectedDuration)
 #New data frame with only projects with non-missing RevisedCompletionDate 
 foo2010 <- noNA_foo[which(noNA_foo$RevisedCompletionDate>= as.Date("2010-01-01")), ]
 #Calculating the percentage of projects with each rating from 0 to 3
-percent_rating_0 <- sum(foo2010$Rating == 0)/sum(foo2010$Rating != "NA")*100
+percent_rating_0 <- sum(foo2010$Rating == 0)/sum(foo2010$Rating)*100
 percent_rating_0
-percent_rating_1 <- sum(foo2010$Rating == 1)/sum(foo2010$Rating != "NA")*100
+percent_rating_1 <- sum(foo2010$Rating == 1)/sum(foo2010$Rating)*100
 percent_rating_1
-percent_rating_2 <- sum(foo2010$Rating == 2)/sum(foo2010$Rating != "NA")*100
+percent_rating_2 <- sum(foo2010$Rating == 2)/sum(foo2010$Rating)*100
 percent_rating_2
-percent_rating_3 <- sum(foo2010$Rating == 3)/sum(foo2010$Rating != "NA")*100
+percent_rating_3 <- sum(foo2010$Rating == 3)/sum(foo2010$Rating)*100
 percent_rating_3
 
 ###QUESTION 3
 #New data frame with only "PATA" projects from 2010 
 foo2010_PATA <- foo2010[which(foo2010$Type == "PATA"), ]
 ##Calculating the percentage of projects with each rating from 0 to 3
-pata_percent_rating_0 <- sum(foo2010_PATA$Rating == 0)/sum(foo2010_PATA$Rating != "NA")*100
+pata_percent_rating_0 <- sum(foo2010_PATA$Rating == 0)/sum(foo2010_PATA$Rating)*100
 pata_percent_rating_0
-pata_percent_rating_1 <- sum(foo2010_PATA$Rating == 1)/sum(foo2010_PATA$Rating != "NA")*100
+pata_percent_rating_1 <- sum(foo2010_PATA$Rating == 1)/sum(foo2010_PATA$Rating)*100
 pata_percent_rating_1
-pata_percent_rating_2 <- sum(foo2010_PATA$Rating == 2)/sum(foo2010_PATA$Rating != "NA")*100
+pata_percent_rating_2 <- sum(foo2010_PATA$Rating == 2)/sum(foo2010_PATA$Rating)*100
 pata_percent_rating_2
-pata_percent_rating_3 <- sum(foo2010_PATA$Rating == 3)/sum(foo2010_PATA$Rating != "NA")*100
+pata_percent_rating_3 <- sum(foo2010_PATA$Rating == 3)/sum(foo2010_PATA$Rating)*100
 pata_percent_rating_3
 
 ###QUESTION 4
@@ -118,12 +118,8 @@ df_Bottom10 <- df[which(df$RevisedAmount <= quantile(df$RevisedAmount, 0.1)),]
   (table(df_Bottom10$Rating) / length(df_Bottom10$Rating) * 100)
 
 #Comparing other groupings 
-#Dept 
-(table(df_Top10$Dept) / length(df_Top10$Dept) * 100) - 
-  (table(df_Bottom10$Dept) / length(df_Bottom10$Dept) * 100)
+#Dept #We use quantity instead of percentage since there are many more categories, which means percentage is not a good representation 
+table(df_Top10$Dept) - table(df_Bottom10$Dept)
 #Country
 (table(df_Top10$Country) / length(df_Top10$Country) * 100) - 
   (table(df_Bottom10$Country) / length(df_Bottom10$Country) * 100)
-#Division
-(table(df_Top10$Division) / length(df_Top10$Division) * 100) - 
-  (table(df_Bottom10$Division) / length(df_Bottom10$Division) * 100)
