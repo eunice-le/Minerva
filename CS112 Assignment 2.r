@@ -91,11 +91,10 @@ contrasts(tinting$target) #hicon = 0, locon = 1
 
 #Generate 1000 simulations to predict csoa 
 sim.tint <- sim(lm.tint, n.sims = 1000)
-summary(simulated.trt)
 
 #assign the ages for which we want to predict "csoa" to a vector
 age.values <- c(20,30,40,50,60,70,80)
-simulated <- matrix(NA, nrow = iterations, ncol = length(age.values))
+simulated <- matrix(NA, nrow = 1000, ncol = length(age.values))
 
 #Using "for" loop to predict "csoa" for every Treated Female units, target = "hicon", ages = 20,30,..80
 #female == 0, hicon == 0, treated units: I(tint!= "no") == TRUE
@@ -176,7 +175,7 @@ table2
 #mean
 plot(age.values, table2$mean.pred.2, ylim=c(-10,10),
      xlab = "age",
-     ylab = 'expected value of "csoa"',
+     ylab = 'expected treatment effect',
      main = 'mean & 95% interval of treatment effect')
 #confidence interval
 arrows(age.values, table2$X2.5., age.values, table2$X97.5.,length = 0.1, angle = 90, code = 3)
